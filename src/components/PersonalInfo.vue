@@ -46,6 +46,7 @@
         margin-top: 20px;
         display: flex;
         color: #EEF5FF;
+        justify-content: space-around;
     }
     .step > span{
         width: 40px;
@@ -56,5 +57,9 @@
         justify-content: center;
         align-items: center;
         font-size: 18px;
+    }
+    .step > p{
+        background-color: blue;
+        min-width: 150px;
     }
 </style>
