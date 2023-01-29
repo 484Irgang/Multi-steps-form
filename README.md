@@ -8,3 +8,4 @@ This template should help get you started developing with Vue 3 in Vite. The tem
 
 That is what i'm talking about, i'm trying to do my best e i will make this happend with my focus and determination!
 But first i need to have disposition and be ready to fail but get up again!
+The time is now, finally some thing will happend with my mentality and i will do it!
