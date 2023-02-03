@@ -1,18 +1,22 @@
 <script>
-  import PersonalInfo from "./components/PersonalInfo.vue"
+  import MultiStepsForm from "./components/MultiStepsForm.vue"
 
   export default{
-    components: {PersonalInfo}
+    components: {MultiStepsForm}
   }
 </script>
 
 <template>
   <div class="container">
-    <PersonalInfo/>
+    <MultiStepsForm/>
   </div>
 </template>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap');
+  *{
+    font-family: Ubuntu;
+  }
   .container{
     width: 100%;
     height: 100vh;
