@@ -38,7 +38,7 @@ export default{
         height: 100%;
         display: flex;
         padding: 1%;
-        flex-wrap: wrap;
+        justify-content: space-between;
     }
     .box-steps{
         width: 30%;
