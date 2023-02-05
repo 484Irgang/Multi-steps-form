@@ -34,8 +34,6 @@ export default{
 
 <style scoped>
     .personal-box{
-        width: 100%;
-        height: 100%;
         display: flex;
         padding: 1%;
         justify-content: space-between;
@@ -82,5 +80,31 @@ export default{
         display: inline-block;
         margin: 4px 0;
         color: #cccccc;
+    }
+
+    @media screen and (max-width: 768px){
+        .box-steps{
+            width: 100%;
+            height: 30%;
+            max-width: initial;
+            max-height: 200px;
+            border-radius: 0;
+            padding-top: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            background-image: url("../assets/bg-sidebar-mobile.svg");
+        }
+        .box-steps ul{
+            display: flex;
+            justify-content: center;
+        }
+        .step{
+            margin: 30px 10px;
+        }
+        .step > p{
+            display: none;
+        }
     }
 </style>

@@ -1,4 +1,10 @@
-<script></script>
+<script>
+    import ButtonNext from './ButtonNext.vue'
+
+    export default{
+        components: {ButtonNext}
+    }
+</script>
 
 <template>
     <div class="container-personal-info">
@@ -14,7 +20,7 @@
             <p>Phone Number</p>
             <input type="text" id="number" placeholder="e.g. +1 234 567 890"/>
         </div>
-        <button>Next Step</button>
+        <ButtonNext/>
     </div>
 </template>
 
@@ -25,7 +31,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding: 5%;
+        padding: 2%;
         justify-content: space-around;
     }
     .container-personal-info > div:first-of-type{
@@ -48,25 +54,41 @@
         color: #02295a;
         margin: 6px 0;
         font-size: 12px;
-        font-weight: 400;
+        font-weight: 500;
     }
     .form-personal-info > input[type=text]{
         width: 100%;
         padding: 3%;
         border-radius: 8px;
-        border: 1px solid rgb(214, 217, 230);
+        border: 2px solid rgb(214, 217, 230);
         margin-bottom: 18px;
         cursor: pointer;
-        font-weight: 500;
+        font-weight: 700;
         font-family: Ubuntu;
         color: #02244d;
     }
     .form-personal-info > input[type=text]:focus{
-        border: 1px solid #02295a;
+        border: 2px solid #02295a;
         outline: none;
     }
     .form-personal-info > input[type=text]::placeholder{
         font-weight: 600;
         color: rgba(150, 153, 171, 0.7);
+    }
+
+    @media screen and (max-width: 768px){
+        .container-personal-info{
+            width: 100%;
+            height: fit-content;
+            z-index: 2;
+            background-color: hsl(231, 100%, 99%);
+            border-radius: 16px;
+            box-shadow: 4px 6px 30px -20px rgb(0 0 0 / 50%);
+            padding: 5%;
+            margin-top: 10%;
+        }
+        .form-personal-info{
+            margin-top: 8%;
+        }
     }
 </style>

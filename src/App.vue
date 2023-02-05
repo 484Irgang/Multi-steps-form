@@ -22,7 +22,6 @@
     height: 100vh;
     overflow: hidden;
     padding: 2%;
-    background-color: #EEF5FF;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -37,4 +36,15 @@
     border-radius: 14px;
     box-shadow: 4px 6px 30px -20px rgba(0, 0, 0, 0.5);
   }
+
+  @media screen and (max-width: 768px){
+    .container{
+      overflow: auto;
+    }
+    .container > div{
+      background-color: transparent;
+      box-shadow: none;
+    }
+  }
+
 </style>
