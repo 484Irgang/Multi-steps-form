@@ -1,8 +1,19 @@
 <script>
 import PersonalInfo from './PersonalInfo.vue'
+import SelectPlan from './SelectPlan.vue'
 
 export default{
-    components: {PersonalInfo}
+    data(){
+        return {
+            stepIndex : 0
+        }
+    },
+    components: {PersonalInfo,SelectPlan},
+    methods: {
+        checarSteps(e){
+            this.stepIndex = e[0];
+        }
+    }
 }
 </script>
 
@@ -11,24 +22,26 @@ export default{
         <div class="box-steps">
             <ul>
                 <li class="step step-1">
-                    <span>1</span>
+                    <span :class="{selected : stepIndex == 0}">1</span>
                     <p><span>step 1</span><br/>Personal info</p>
                 </li>
                 <li class="step step-2">
-                    <span>2</span>
+                    <span :class="{selected : stepIndex == 1}">2</span>
                     <p><span>step 2</span><br/>select plan</p>
                 </li>
                 <li class="step step-3">
-                    <span>3</span>
+                    <span :class="{selected : stepIndex == 2}">3</span>
                     <p><span>step 3</span><br/>add-ons</p>
                 </li>
                 <li class="step step-4">
-                    <span>4</span>
+                    <span :class="{selected : stepIndex == 3}">4</span>
                     <p><span>step 4</span><br/>summary</p>
                 </li>
             </ul>
         </div>
-        <PersonalInfo/>
+        <div class="container-form">
+            <PersonalInfo v-show="stepIndex == 0" @alterarSteps = "(e) => checarSteps(e)"/>
+        </div>    
     </div>
 </template>
 
@@ -68,6 +81,10 @@ export default{
         align-items: center;
         font-size: 18px;
     }
+    .step .selected{
+        background-color:hsl(206, 94%, 87%);
+        color: black;
+    }
     .step > p{
         /* background-color: blue; */
         min-width: 160px;
@@ -79,7 +96,14 @@ export default{
         font-size: 10px;
         display: inline-block;
         margin: 4px 0;
-        color: #cccccc;
+        color: #a3a3a3;
+    }
+    .container-form{
+        padding: 4%;
+        width: 70%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
     }
 
     @media screen and (max-width: 768px){
@@ -106,5 +130,14 @@ export default{
         .step > p{
             display: none;
         }
+        .container-form{
+            width: 100%;
+            height: fit-content;
+            z-index: 2;
+            background-color: hsl(231, 100%, 99%);
+            border-radius: 16px;
+            box-shadow: 4px 6px 30px -20px rgb(0 0 0 / 50%);
+            margin-top: 10%;
+    }
     }
 </style>

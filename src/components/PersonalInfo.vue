@@ -2,7 +2,53 @@
     import ButtonNext from './ButtonNext.vue'
 
     export default{
-        components: {ButtonNext}
+        components: {ButtonNext},
+        data() {
+            return {
+                buttonClicked: 0
+            }
+        },
+        methods: {
+            returnedButtonClick(e){
+                if(e > this.buttonClicked){
+                    let validation = true;
+                    const dados = document.querySelectorAll(".form-personal-info input[type=text]");
+                    for(var i=0;i<dados.length;i++){
+                        dados[i].style.border = "2px solid #02295a";
+                        dados[i].parentNode.children[1].innerHTML = '';
+                    }
+
+                    const checkName = dados[0].value.match(/^[A-Z]{1}[a-z]{1,}[ ]{1}[A-Za-z]{1,}/g);
+                    if(checkName == null){
+                        dados[0].style.border = "2px solid hsl(354, 84%, 57%)";
+                        dados[0].parentNode.children[1].innerText = "This field is invalid";
+                        validation = false;
+                    }
+
+                    const checkEmail = dados[1].value.match(/^[A-Za-z0-9._-]{1,}[@]{1}[A-Za-z]{1,}[.]{1}[a-z]{1,}/g);
+                    if(checkEmail == null){
+                        dados[1].style.border = "2px solid hsl(354, 84%, 57%)";
+                        dados[1].parentNode.children[1].innerText = "This field is invalid";
+                        validation = false;
+                    }
+
+                    const checkNumber = dados[2].value.match(/^[+]{1}[0-9]{12,12}/);
+                    if(checkNumber == null || dados[2].value.length > 16){
+                        dados[2].style.border = "2px solid hsl(354, 84%, 57%)";
+                        dados[2].parentNode.children[1].innerText = "This field is invalid";
+                        validation = false;
+                    }
+                    
+
+                    validation? this.alterarSteps(dados) : console.log("Erro");
+                }
+            },
+            alterarSteps(dados){
+                this.buttonClicked++;
+                this.$emit('alterarSteps', [this.buttonClicked]);
+            }
+        },
+        emits: ['alterarSteps']
     }
 </script>
 
@@ -13,20 +59,29 @@
             <p>Please provide your name, email adress and phone number.</p>
         </div>
         <div class="form-personal-info">
-            <p>Name</p>
-            <input type="text" id="name" placeholder="e.g. Stephen King"/>
-            <p>Email Adress</p>
-            <input type="text" id="email" placeholder="e.g. stephanking@loren.com"/>
-            <p>Phone Number</p>
-            <input type="text" id="number" placeholder="e.g. +1 234 567 890"/>
+            <div>
+                <p>Name</p>
+                <span></span>
+                <input type="text" id="name" placeholder="e.g. Stephen King"/>
+            </div>    
+            <div>
+                <p>Email Adress</p>
+                <span></span>
+                <input type="text" id="email" placeholder="e.g. stephanking@loren.com"/>
+            </div>
+            <div>
+                <p>Phone Number</p>
+                <span></span>
+                <input type="text" id="number" placeholder="e.g. +1 234 567 890"/>
+            </div>    
         </div>
-        <ButtonNext/>
+        <ButtonNext @responseClick="(e) => returnedButtonClick(e)" :clicked="buttonClicked"/>
     </div>
 </template>
 
 <style scoped>
     .container-personal-info{
-        width: 70%;
+        width: 100%;
         height: 100%;
         display: flex;
         flex-direction: column;
@@ -50,42 +105,49 @@
         width: 100%;
         max-width: 450px;
     }
-    .form-personal-info > p{
+    .form-personal-info > div{
+        width: 100%;
+        margin-bottom: 18px;
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .form-personal-info > div > p{
         color: #02295a;
         margin: 6px 0;
         font-size: 12px;
         font-weight: 500;
+        display: inline-block;
     }
-    .form-personal-info > input[type=text]{
+    .form-personal-info > div > input[type=text]{
         width: 100%;
         padding: 3%;
         border-radius: 8px;
         border: 2px solid rgb(214, 217, 230);
-        margin-bottom: 18px;
         cursor: pointer;
         font-weight: 700;
         font-family: Ubuntu;
         color: #02244d;
     }
-    .form-personal-info > input[type=text]:focus{
+    .form-personal-info > div > input[type=text]:focus{
         border: 2px solid #02295a;
         outline: none;
     }
-    .form-personal-info > input[type=text]::placeholder{
+    .form-personal-info > div > input[type=text]::placeholder{
         font-weight: 600;
         color: rgba(150, 153, 171, 0.7);
+    }
+    .form-personal-info > div > span{
+        font-size: 12px;
+        align-self: center;
+        margin-left: auto;
+        font-weight: 500;
+        font-family: Ubuntu;
+        color: hsl(354, 84%, 57%);
     }
 
     @media screen and (max-width: 768px){
         .container-personal-info{
-            width: 100%;
-            height: fit-content;
-            z-index: 2;
-            background-color: hsl(231, 100%, 99%);
-            border-radius: 16px;
-            box-shadow: 4px 6px 30px -20px rgb(0 0 0 / 50%);
-            padding: 5%;
-            margin-top: 10%;
+            padding: 4%;
         }
         .form-personal-info{
             margin-top: 8%;

@@ -1,8 +1,27 @@
-<script></script>
+<script>
+    export default {
+        data(){
+            return{
+                indexButton: 0
+            }
+        },
+        props: {
+            clicked: Number
+        },
+        emits: ['responseClick'],
+        methods: {
+            clickedNext(){
+                this.indexButton = this.clicked;
+                this.indexButton++
+                this.$emit('responseClick', this.indexButton);
+            }
+        }
+    }
+</script>
 
 <template>
     <div class="container-button">
-        <button>Next Step</button>
+        <button @click="clickedNext">Next Step</button>
         <button>Go Back</button>
     </div>
 </template>
@@ -53,7 +72,7 @@
         padding: 2% 4%;
         background-color: hsl(231, 100%, 99%);
         position: absolute;
-        bottom: 5%;
+        bottom: 0;
     }
 }
 </style>
