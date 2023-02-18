@@ -6,14 +6,24 @@
             }
         },
         props: {
-            clicked: Number
+            clicked: Array
         },
-        emits: ['responseClick'],
+        emits: ['responseClick','responseClickBack'],
         methods: {
             clickedNext(){
-                this.indexButton = this.clicked;
-                this.indexButton++
-                this.$emit('responseClick', this.indexButton);
+                if(this.clicked[1] < 3){
+                    this.indexButton = this.clicked[0];
+                    this.indexButton++;
+                    this.$emit('responseClick', this.indexButton);
+                }
+                else{
+                    return false;
+                }
+            },
+            clickedBack(){
+                let indexStepBack = this.clicked[1];
+                indexStepBack--;
+                this.$emit('responseClickBack',indexStepBack);
             }
         }
     }
@@ -22,7 +32,7 @@
 <template>
     <div class="container-button">
         <button @click="clickedNext">Next Step</button>
-        <button>Go Back</button>
+        <button v-show="clicked[1] > 0" @click="clickedBack">Go Back</button>
     </div>
 </template>
 

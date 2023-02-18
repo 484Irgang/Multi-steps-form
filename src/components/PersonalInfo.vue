@@ -1,17 +1,12 @@
 <script>
-    import ButtonNext from './ButtonNext.vue'
-
     export default{
-        components: {ButtonNext},
-        data() {
-            return {
-                buttonClicked: 0
-            }
+        props: {
+            clicked: Number
         },
-        methods: {
-            returnedButtonClick(e){
-                if(e > this.buttonClicked){
-                    let validation = true;
+        watch:{
+            clicked(newClicked){
+                
+                let validation = true;
                     const dados = document.querySelectorAll(".form-personal-info input[type=text]");
                     for(var i=0;i<dados.length;i++){
                         dados[i].style.border = "2px solid #02295a";
@@ -32,7 +27,7 @@
                         validation = false;
                     }
 
-                    const checkNumber = dados[2].value.match(/^[+]{1}[0-9]{12,12}/);
+                    const checkNumber = dados[2].value.match(/^[+]{1}[0-9]{12,16}/);
                     if(checkNumber == null || dados[2].value.length > 16){
                         dados[2].style.border = "2px solid hsl(354, 84%, 57%)";
                         dados[2].parentNode.children[1].innerText = "This field is invalid";
@@ -40,12 +35,12 @@
                     }
                     
 
-                    validation? this.alterarSteps(dados) : console.log("Erro");
-                }
-            },
-            alterarSteps(dados){
-                this.buttonClicked++;
-                this.$emit('alterarSteps', [this.buttonClicked]);
+                    this.alterarSteps(validation,dados);
+            }
+        },
+        methods: {
+            alterarSteps(v,dados){
+                this.$emit('alterarSteps', [v,dados]);
             }
         },
         emits: ['alterarSteps']
@@ -75,7 +70,6 @@
                 <input type="text" id="number" placeholder="e.g. +1 234 567 890"/>
             </div>    
         </div>
-        <ButtonNext @responseClick="(e) => returnedButtonClick(e)" :clicked="buttonClicked"/>
     </div>
 </template>
 

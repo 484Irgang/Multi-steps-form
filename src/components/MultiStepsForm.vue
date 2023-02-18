@@ -1,17 +1,24 @@
 <script>
 import PersonalInfo from './PersonalInfo.vue'
 import SelectPlan from './SelectPlan.vue'
-
+import ButtonNext from './ButtonNext.vue'
 export default{
     data(){
         return {
-            stepIndex : 0
+            stepIndex : 0,
+            buttonClick: 0
         }
     },
-    components: {PersonalInfo,SelectPlan},
+    components: {PersonalInfo,SelectPlan,ButtonNext},
     methods: {
         checarSteps(e){
-            this.stepIndex = e[0];
+            e[0]? this.stepIndex++ : console.log("ERRO");
+        },
+        returnedButtonClick(e){
+            this.buttonClick = e;
+        },
+        returnedButtonBack(e){
+            this.stepIndex = e;
         }
     }
 }
@@ -40,7 +47,8 @@ export default{
             </ul>
         </div>
         <div class="container-form">
-            <PersonalInfo v-show="stepIndex == 0" @alterarSteps = "(e) => checarSteps(e)"/>
+            <PersonalInfo v-show="stepIndex == 0" @alterarSteps = "(e) => checarSteps(e)" :clicked="buttonClick"/>
+            <ButtonNext @responseClick="(e) => returnedButtonClick(e)" :clicked="[buttonClick,stepIndex]" @responseClickBack="(e) => returnedButtonBack(e)"/>
         </div>    
     </div>
 </template>
@@ -103,7 +111,9 @@ export default{
         width: 70%;
         height: 100%;
         display: flex;
-        justify-content: center;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
     }
 
     @media screen and (max-width: 768px){
