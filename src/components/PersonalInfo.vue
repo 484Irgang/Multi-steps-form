@@ -85,7 +85,7 @@
     }
     .container-personal-info > div:first-of-type{
         width: 100%;
-        max-width: 450px;
+        max-width: 550px;
     }
     .container-personal-info > div > h1{
         color: hsl(213, 96%, 18%);
@@ -97,7 +97,7 @@
     }
     .form-personal-info{
         width: 100%;
-        max-width: 450px;
+        max-width: 550px;
     }
     .form-personal-info > div{
         width: 100%;
@@ -116,7 +116,7 @@
         width: 100%;
         padding: 3%;
         border-radius: 8px;
-        border: 2px solid rgb(214, 217, 230);
+        border: 2px solid hsl(231, 11%, 63%);
         cursor: pointer;
         font-weight: 700;
         font-family: Ubuntu;
@@ -128,7 +128,7 @@
     }
     .form-personal-info > div > input[type=text]::placeholder{
         font-weight: 600;
-        color: rgba(150, 153, 171, 0.7);
+        color: hsl(231, 11%, 63%);
     }
     .form-personal-info > div > span{
         font-size: 12px;

@@ -39,7 +39,7 @@
 <style scoped>
 .container-button{
     width: 100%;
-    max-width: 450px;
+    max-width: 550px;
     justify-self: flex-end;
     display: flex;
     flex-direction: row-reverse;
@@ -83,6 +83,8 @@
         background-color: hsl(231, 100%, 99%);
         position: absolute;
         bottom: 0;
+        box-shadow: 4px 6px 30px -10px rgb(0 0 0 / 50%);
+        
     }
 }
 </style>

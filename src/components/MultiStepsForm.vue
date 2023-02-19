@@ -48,8 +48,9 @@ export default{
         </div>
         <div class="container-form">
             <PersonalInfo v-show="stepIndex == 0" @alterarSteps = "(e) => checarSteps(e)" :clicked="buttonClick"/>
+            <SelectPlan v-show="stepIndex == 1"/>
             <ButtonNext @responseClick="(e) => returnedButtonClick(e)" :clicked="[buttonClick,stepIndex]" @responseClickBack="(e) => returnedButtonBack(e)"/>
-        </div>    
+            </div>    
     </div>
 </template>
 
@@ -107,7 +108,7 @@ export default{
         color: #a3a3a3;
     }
     .container-form{
-        padding: 4%;
+        padding: 2%;
         width: 70%;
         height: 100%;
         display: flex;
@@ -144,6 +145,7 @@ export default{
             width: 100%;
             height: fit-content;
             z-index: 2;
+            padding: 4%;
             background-color: hsl(231, 100%, 99%);
             border-radius: 16px;
             box-shadow: 4px 6px 30px -20px rgb(0 0 0 / 50%);
