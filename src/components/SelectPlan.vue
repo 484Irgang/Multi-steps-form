@@ -1,4 +1,54 @@
-<script></script>
+<script>
+    export default{
+        data(){
+            return{
+                periodPlanYear: false,
+                valuePlans: [{price:9,name: 'Arcade', period: undefined},{price:12, name: 'Advanced', period: undefined},{price:15, name: 'Pro', period: undefined}],
+                planSelected: {},
+                toggleAlert: false
+            }
+        },
+        methods: {
+            setValues(value){
+                return this.periodPlanYear? '$'+value*10+'/ye' : '$'+value+'/mo';
+            },
+            choicePlan(value){
+                let planSelected = this.valuePlans.filter((e,i) => i == value);
+                this.planSelected = planSelected[0];
+            },
+            objIsEmpty(obj){
+                for(var prop in obj){
+                    if(obj.hasOwnProperty(prop))
+                        return false;
+                }
+                return true;
+            }
+        },
+        props: {
+            clicked: Number,
+            indexStep: Number
+        },
+        watch: {
+            clicked(newClicked){
+                if(this.indexStep == 1){
+                    if(this.objIsEmpty(this.planSelected)){
+                        this.toggleAlert = true;
+                        setTimeout(() => this.toggleAlert = false, 5000);
+                    }
+                    else{
+                        let period = this.periodPlanYear? 'Yearly' : 'Monthly';
+                        this.planSelected.period = period;
+                        this.$emit('sendPlan',this.planSelected);
+                    }
+                }
+                else{
+                    return false;
+                }
+            }
+        }
+
+    }
+</script>
 
 <template>
     <section class="container-select-plan">
@@ -8,30 +58,31 @@
         </div>
 
         <div class="plans">
-            <div class="plan">
+            <div :class="{planSelected: planSelected.name == 'Arcade'}" @click="choicePlan(0)" class="plan">
                 <img :src="'./src/assets/icon-arcade.svg'" class="img-plan"/>
-                <p>Arcade<br/><span>$9/mo</span><br/><span> 2 months free</span></p>
+                <p>Arcade<br/><span>{{setValues(valuePlans[0].price)}}</span><br/><span v-show="periodPlanYear"> 2 months free</span></p>
             </div>
 
-            <div class="plan">
+            <div :class="{planSelected: planSelected.name == 'Advanced'}" @click="choicePlan(1)" class="plan">
                 <img :src="'./src/assets/icon-advanced.svg'" class="img-plan"/>
-                <p>Advanced<br/><span>$9/mo</span><br/><span>2 months free</span></p>
+                <p>Advanced<br/><span>{{setValues(valuePlans[1].price)}}</span><br/><span v-show="periodPlanYear">2 months free</span></p>
             </div>
 
-            <div class="plan">
+            <div :class="{planSelected: planSelected.name == 'Pro'}" @click="choicePlan(2)" class="plan">
                 <img :src="'./src/assets/icon-pro.svg'" class="img-plan"/>
-                <p>Pro<br/><span>$9/mo</span><br/><span>2 months free</span></p>
+                <p>Pro<br/><span>{{setValues(valuePlans[2].price)}}</span><br/><span v-show="periodPlanYear">2 months free</span></p>
             </div>
         </div>
 
         <div class="period-plan">
             <div>
-                <span>Monthly</span>
-                <div><span class="circle"></span></div>
-                <span>Yearly</span>
+                <span :class="{periodSelected: !periodPlanYear}">Monthly</span>
+                <div @click="() => this.periodPlanYear = !this.periodPlanYear"><span :class="{scrollRight : periodPlanYear, scrollLeft: !periodPlanYear}" class="circle"></span></div>
+                <span :class="{periodSelected: periodPlanYear}">Yearly</span>
             </div>
         </div>
 
+        <div v-show="toggleAlert" :class="{toggleAlert: toggleAlert}" class="alert">You need select some plan</div>
     </section>
 </template>
 
@@ -43,6 +94,7 @@
         display: flex;
         flex-direction: column;
         padding: 2%;
+        align-items: center;
     }
     .container-select-plan > div{
         margin-top: 5%;
@@ -72,7 +124,7 @@
     .plans .plan{
         width: 30%;
         aspect-ratio: 6/7;
-        border: 1px solid #02295a;
+        border: 1px solid #c7c9d6;
         border-radius: 8px;
         padding: 3%;
         display: flex;
@@ -80,8 +132,12 @@
         justify-content: space-between;
         cursor: pointer;
     }
-    .plans .plan:hover{
-        background-color: #f0f6ff;
+    .plans .plan:hover:not(.planSelected){
+        border: 1px solid #02295a;
+    }
+    .plans .planSelected{
+        border: 2px solid #02295a;
+        background-color: #edeef387;
     }
     .plans .plan .img-plan{
         width: 44px;
@@ -111,7 +167,7 @@
     }
     .period-plan > div{
         width: 100%;
-        max-width: 200px;
+        max-width: 250px;
         /* background-color: green; */
         display: flex;
         justify-content: space-around;
@@ -127,6 +183,7 @@
         padding: 2%;
         display: flex;
         align-items: center;
+        cursor: pointer;
     }
     .period-plan > div > div > .circle{
         display: inline-block;
@@ -134,7 +191,72 @@
         height: 20px;
         border-radius: 50%;
         background-color: white;
-        cursor: pointer;
+        
+    }
+    .period-plan > div > div .scrollRight{
+        animation-name: scrollRight;
+        animation-duration: 0.7s;
+        animation-fill-mode: forwards;
+    }
+    .period-plan > div > div .scrollLeft{
+        animation-name: scrollLeft;
+        animation-duration: 0.7s;
+        animation-fill-mode: forwards;
+    }
+    .period-plan > div .periodSelected{
+        color: #02295a;
+    }
+    .alert{
+        width: 100%;
+        max-width: 300px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgba(255, 204, 204, 0.614);
+        border: 1px solid red;
+        color: rgb(162, 9, 9);
+        position: relative;
+        top: 350px;
+        padding: 8px;
+        border-radius: 12px;
+        box-shadow: 0 0 10px 2px rgba(187, 99, 99, 0.342);
+    }
+    .toggleAlert{
+        animation-name: alertOn;
+        animation-duration: 2s;
+        animation-fill-mode: forwards;
+    }
+    @keyframes scrollRight{
+        from{
+            transform: translateX(0) rotateY(0deg);
+        }
+        to{
+            transform: translateX(120%) rotateY(180deg);
+        }
+    }
+
+    @keyframes scrollLeft{
+        from{
+            transform: translateX(120%) rotateY(180deg);
+        }
+        to{
+            transform: translateX(0) rotateY(0deg);
+        }
+    }
+
+    @keyframes alertOn{
+        0%{
+            top: 350px;
+        }
+        15%{
+            top: -5%;
+        }
+        30%{
+            top: 20%;
+        }
+        100%{
+            top: -5%;
+        }
     }
 
     @media screen and (max-width: 478px){

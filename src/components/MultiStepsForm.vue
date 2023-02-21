@@ -11,10 +11,13 @@ export default{
     },
     components: {PersonalInfo,SelectPlan,ButtonNext},
     methods: {
-        checarSteps(e){
-            e[0]? this.stepIndex++ : console.log("ERRO");
+        checarPersonalInfo(e){
+                return  e[0]? this.stepIndex++ : false;
         },
-        returnedButtonClick(e){
+        checkStepPlan(e){
+            this.stepIndex++;
+        },
+        returnedButtonNext(e){
             this.buttonClick = e;
         },
         returnedButtonBack(e){
@@ -47,9 +50,9 @@ export default{
             </ul>
         </div>
         <div class="container-form">
-            <PersonalInfo v-show="stepIndex == 0" @alterarSteps = "(e) => checarSteps(e)" :clicked="buttonClick"/>
-            <SelectPlan v-show="stepIndex == 1"/>
-            <ButtonNext @responseClick="(e) => returnedButtonClick(e)" :clicked="[buttonClick,stepIndex]" @responseClickBack="(e) => returnedButtonBack(e)"/>
+            <PersonalInfo v-show="stepIndex == 0" @liberarStep = "(e) => checarPersonalInfo(e)" :clicked="buttonClick" :indexStep="stepIndex"/>
+            <SelectPlan v-show="stepIndex == 1" :clicked="buttonClick" :indexStep="stepIndex" @sendPlan="(e) => checkStepPlan(e)"/>
+            <ButtonNext @responseClick="(e) => returnedButtonNext(e)" :clicked="[buttonClick,stepIndex]" @responseClickBack="(e) => returnedButtonBack(e)"/>
             </div>    
     </div>
 </template>

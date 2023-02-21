@@ -1,49 +1,49 @@
 <script>
     export default{
         props: {
-            clicked: Number
+            clicked: Number,
+            indexStep: Number
         },
         watch:{
             clicked(newClicked){
-                
-                let validation = true;
-                    const dados = document.querySelectorAll(".form-personal-info input[type=text]");
-                    for(var i=0;i<dados.length;i++){
-                        dados[i].style.border = "2px solid #02295a";
-                        dados[i].parentNode.children[1].innerHTML = '';
-                    }
+                if(this.indexStep == 0){
+                    let validation = true;
+                        const dados = document.querySelectorAll(".form-personal-info input[type=text]");
+                        for(var i=0;i<dados.length;i++){
+                            dados[i].style.border = "2px solid #02295a";
+                            dados[i].parentNode.children[1].innerHTML = '';
+                        }
 
-                    const checkName = dados[0].value.match(/^[A-Z]{1}[a-z]{1,}[ ]{1}[A-Za-z]{1,}/g);
-                    if(checkName == null){
-                        dados[0].style.border = "2px solid hsl(354, 84%, 57%)";
-                        dados[0].parentNode.children[1].innerText = "This field is invalid";
-                        validation = false;
-                    }
+                        const checkName = dados[0].value.match(/^[A-Z]{1}[a-z]{1,}[ ]{1}[A-Za-z]{1,}/g);
+                        if(checkName == null){
+                            dados[0].style.border = "2px solid hsl(354, 84%, 57%)";
+                            dados[0].parentNode.children[1].innerText = "This field is invalid";
+                            validation = false;
+                        }
 
-                    const checkEmail = dados[1].value.match(/^[A-Za-z0-9._-]{1,}[@]{1}[A-Za-z]{1,}[.]{1}[a-z]{1,}/g);
-                    if(checkEmail == null){
-                        dados[1].style.border = "2px solid hsl(354, 84%, 57%)";
-                        dados[1].parentNode.children[1].innerText = "This field is invalid";
-                        validation = false;
-                    }
+                        const checkEmail = dados[1].value.match(/^[A-Za-z0-9._-]{1,}[@]{1}[A-Za-z]{1,}[.]{1}[a-z]{1,}/g);
+                        if(checkEmail == null){
+                            dados[1].style.border = "2px solid hsl(354, 84%, 57%)";
+                            dados[1].parentNode.children[1].innerText = "This field is invalid";
+                            validation = false;
+                        }
 
-                    const checkNumber = dados[2].value.match(/^[+]{1}[0-9]{12,16}/);
-                    if(checkNumber == null || dados[2].value.length > 16){
-                        dados[2].style.border = "2px solid hsl(354, 84%, 57%)";
-                        dados[2].parentNode.children[1].innerText = "This field is invalid";
-                        validation = false;
-                    }
-                    
+                        const checkNumber = dados[2].value.match(/^[+]{1}[0-9]{12,16}/);
+                        if(checkNumber == null || dados[2].value.length > 16){
+                            dados[2].style.border = "2px solid hsl(354, 84%, 57%)";
+                            dados[2].parentNode.children[1].innerText = "This field is invalid";
+                            validation = false;
+                        }
+                        
 
-                    this.alterarSteps(validation,dados);
+                        this.$emit('liberarStep', [validation,dados]);
+                }
+                else{
+                    return false;
+                }
             }
         },
-        methods: {
-            alterarSteps(v,dados){
-                this.$emit('alterarSteps', [v,dados]);
-            }
-        },
-        emits: ['alterarSteps']
+        emits: ['liberarStep']
     }
 </script>
 
