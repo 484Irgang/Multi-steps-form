@@ -45,6 +45,7 @@
     flex-direction: row-reverse;
     justify-content: space-between;
     align-items: center;
+    padding: 2%;
 }
 .container-button button:first-of-type{
     width: 120px;

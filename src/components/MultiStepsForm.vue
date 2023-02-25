@@ -152,7 +152,7 @@ export default{
             background-color: hsl(231, 100%, 99%);
             border-radius: 16px;
             box-shadow: 4px 6px 30px -20px rgb(0 0 0 / 50%);
-            margin-top: 10%;
+            margin-top: 60px;
     }
     }
 </style>

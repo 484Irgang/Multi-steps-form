@@ -212,11 +212,11 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: rgba(255, 204, 204, 0.614);
+        background-color: rgb(255, 207, 207);
         border: 1px solid red;
         color: rgb(162, 9, 9);
-        position: relative;
-        top: 350px;
+        position: absolute;
+        bottom: 0;
         padding: 8px;
         border-radius: 12px;
         box-shadow: 0 0 10px 2px rgba(187, 99, 99, 0.342);
@@ -246,16 +246,22 @@
 
     @keyframes alertOn{
         0%{
-            top: 350px;
+            bottom: 0;
         }
         15%{
-            top: -5%;
+            bottom: 22%;
         }
         30%{
-            top: 20%;
+            bottom: 20px;
+        }
+        50%{
+            bottom: 22%;
+        }
+        70%{
+            bottom: 100px;
         }
         100%{
-            top: -5%;
+            bottom: 22%;
         }
     }
 
