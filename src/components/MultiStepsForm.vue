@@ -2,6 +2,8 @@
 import PersonalInfo from './PersonalInfo.vue'
 import SelectPlan from './SelectPlan.vue'
 import ButtonNext from './ButtonNext.vue'
+import Addons from './PickAddons.vue'
+
 export default{
     data(){
         return {
@@ -9,10 +11,10 @@ export default{
             buttonClick: 0
         }
     },
-    components: {PersonalInfo,SelectPlan,ButtonNext},
+    components: {PersonalInfo,SelectPlan,ButtonNext,Addons},
     methods: {
         checarPersonalInfo(e){
-                return  e[0]? this.stepIndex++ : false;
+            e[0]? this.stepIndex++ : false;
         },
         checkStepPlan(e){
             this.stepIndex++;
@@ -52,8 +54,9 @@ export default{
         <div class="container-form">
             <PersonalInfo v-show="stepIndex == 0" @liberarStep = "(e) => checarPersonalInfo(e)" :clicked="buttonClick" :indexStep="stepIndex"/>
             <SelectPlan v-show="stepIndex == 1" :clicked="buttonClick" :indexStep="stepIndex" @sendPlan="(e) => checkStepPlan(e)"/>
+            <Addons v-show="stepIndex == 2" />    
             <ButtonNext @responseClick="(e) => returnedButtonNext(e)" :clicked="[buttonClick,stepIndex]" @responseClickBack="(e) => returnedButtonBack(e)"/>
-            </div>    
+        </div>    
     </div>
 </template>
 

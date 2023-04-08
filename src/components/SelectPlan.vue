@@ -59,17 +59,17 @@
 
         <div class="plans">
             <div :class="{planSelected: planSelected.name == 'Arcade'}" @click="choicePlan(0)" class="plan">
-                <img :src="'./src/assets/icon-arcade.svg'" class="img-plan"/>
+                <img src="../assets/icon-arcade.svg" class="img-plan"/>
                 <p>Arcade<br/><span>{{setValues(valuePlans[0].price)}}</span><br/><span v-show="periodPlanYear"> 2 months free</span></p>
             </div>
 
             <div :class="{planSelected: planSelected.name == 'Advanced'}" @click="choicePlan(1)" class="plan">
-                <img :src="'./src/assets/icon-advanced.svg'" class="img-plan"/>
+                <img src="../assets/icon-advanced.svg" class="img-plan"/>
                 <p>Advanced<br/><span>{{setValues(valuePlans[1].price)}}</span><br/><span v-show="periodPlanYear">2 months free</span></p>
             </div>
 
             <div :class="{planSelected: planSelected.name == 'Pro'}" @click="choicePlan(2)" class="plan">
-                <img :src="'./src/assets/icon-pro.svg'" class="img-plan"/>
+                <img src="../assets/icon-pro.svg" class="img-plan"/>
                 <p>Pro<br/><span>{{setValues(valuePlans[2].price)}}</span><br/><span v-show="periodPlanYear">2 months free</span></p>
             </div>
         </div>
