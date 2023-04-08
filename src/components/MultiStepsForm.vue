@@ -7,7 +7,7 @@ import Addons from './PickAddons.vue'
 export default{
     data(){
         return {
-            stepIndex : 0,
+            stepIndex : 2,
             buttonClick: 0
         }
     },
