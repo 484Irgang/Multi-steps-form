@@ -10,33 +10,33 @@
                     let validation = true;
                         const dados = document.querySelectorAll(".form-personal-info input[type=text]");
                         for(var i=0;i<dados.length;i++){
-                            dados[i].style.border = "2px solid #02295a";
+                            dados[i].style.border = "1.5px solid #02295a";
                             dados[i].parentNode.children[1].innerHTML = '';
                         }
 
                         const checkName = dados[0].value.match(/^[A-Z]{1}[a-z]{1,}[ ]{1}[A-Za-z]{1,}/g);
                         if(checkName == null){
-                            dados[0].style.border = "2px solid hsl(354, 84%, 57%)";
+                            dados[0].style.border = "1.5px solid hsl(354, 84%, 57%)";
                             dados[0].parentNode.children[1].innerText = "This field is invalid";
                             validation = false;
                         }
 
                         const checkEmail = dados[1].value.match(/^[A-Za-z0-9._-]{1,}[@]{1}[A-Za-z]{1,}[.]{1}[a-z]{1,}/g);
                         if(checkEmail == null){
-                            dados[1].style.border = "2px solid hsl(354, 84%, 57%)";
+                            dados[1].style.border = "1.5px solid hsl(354, 84%, 57%)";
                             dados[1].parentNode.children[1].innerText = "This field is invalid";
                             validation = false;
                         }
 
                         const checkNumber = dados[2].value.match(/^[+]{1}[0-9]{12,16}/);
                         if(checkNumber == null || dados[2].value.length > 16){
-                            dados[2].style.border = "2px solid hsl(354, 84%, 57%)";
+                            dados[2].style.border = "1.5px solid hsl(354, 84%, 57%)";
                             dados[2].parentNode.children[1].innerText = "This field is invalid";
                             validation = false;
                         }
                         
 
-                        this.$emit('liberarStep', [validation,dados]);
+                        return validation ? this.$emit('liberarStep', dados) : false;
                 }
                 else{
                     return false;
@@ -116,7 +116,7 @@
         width: 100%;
         padding: 3%;
         border-radius: 8px;
-        border: 2px solid hsl(231, 11%, 63%);
+        border: 1.5px solid hsl(231, 11%, 63%);
         cursor: pointer;
         font-weight: 700;
         font-family: Ubuntu;

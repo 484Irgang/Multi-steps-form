@@ -31,7 +31,7 @@
 
 <template>
     <div class="container-button">
-        <button @click="clickedNext">Next Step</button>
+        <button @click="clickedNext"><span v-if="clicked[1] == 3">Confirm</span><span v-else >Next Step</span></button>
         <button v-show="clicked[1] > 0" @click="clickedBack">Go Back</button>
     </div>
 </template>

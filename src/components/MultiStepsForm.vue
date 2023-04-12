@@ -7,16 +7,19 @@ import Addons from './PickAddons.vue'
 export default{
     data(){
         return {
-            stepIndex : 2,
+            stepIndex : 0,
             buttonClick: 0
         }
     },
     components: {PersonalInfo,SelectPlan,ButtonNext,Addons},
     methods: {
         checarPersonalInfo(e){
-            e[0]? this.stepIndex++ : false;
+            this.stepIndex++;
         },
         checkStepPlan(e){
+            this.stepIndex++;
+        },
+        checkAddons(e){
             this.stepIndex++;
         },
         returnedButtonNext(e){
@@ -54,7 +57,7 @@ export default{
         <div class="container-form">
             <PersonalInfo v-show="stepIndex == 0" @liberarStep = "(e) => checarPersonalInfo(e)" :clicked="buttonClick" :indexStep="stepIndex"/>
             <SelectPlan v-show="stepIndex == 1" :clicked="buttonClick" :indexStep="stepIndex" @sendPlan="(e) => checkStepPlan(e)"/>
-            <Addons v-show="stepIndex == 2" />    
+            <Addons v-show="stepIndex == 2" :clicked="buttonClick" :indexStep="stepIndex" @addonsChoiced="(e) => checkAddons(e) "/>    
             <ButtonNext @responseClick="(e) => returnedButtonNext(e)" :clicked="[buttonClick,stepIndex]" @responseClickBack="(e) => returnedButtonBack(e)"/>
         </div>    
     </div>

@@ -2,7 +2,8 @@
     export default{
         data(){
             return {
-                add_ons: [{type: "Online service", value: 1},{type: "Larger storage", value: 2},{type: "Customizable profile", value: 2}]
+                add_ons: [{type: "Online service", value: 1},{type: "Larger storage", value: 2},{type: "Customizable profile", value: 2}],
+                addons_choiced: []
             }
         },
         methods: {
@@ -12,16 +13,35 @@
                     e.preventDefault();
 
                 var input_check = document.querySelectorAll(".add-on_box input");
+                
                 input_check[i].defaultChecked = !input_check[i].defaultChecked;
-
-                console.log(e.target);
-
                 input_check[i].className = input_check[i].defaultChecked ? "checked" : "";
 
-                var addon_box = document.querySelectorAll(".add-on_box");
-                addon_box[i].style.backgroundColor = input_check[i].defaultChecked ? "hsl(217, 100%, 97%)" : "transparent";
+                var add_on_box = document.querySelectorAll(".add-on_box");
+                add_on_box[i].style.backgroundColor = input_check[i].defaultChecked ? "hsl(217, 100%, 97%)" : "transparent";
+
+                var add_ons_array = [];
+                input_check.forEach(element => {add_ons_array.push(element)});
+                
+                var add_choiced = add_ons_array.filter( element => (element.className == "checked"))
+
+                this.addons_choiced = add_choiced;
             }
         },
+        props: {
+            clicked: Number,
+            indexStep: Number
+        },
+        watch: {
+            clicked(newClicked){
+                if(this.indexStep == 2){
+                    return this.$emit("addonsChoiced",this.addons_choiced);
+                }
+                else{
+                    return false;
+                }
+            }
+        }
        
     }
 </script>
