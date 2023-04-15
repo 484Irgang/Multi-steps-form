@@ -3,24 +3,30 @@ import PersonalInfo from './PersonalInfo.vue'
 import SelectPlan from './SelectPlan.vue'
 import ButtonNext from './ButtonNext.vue'
 import Addons from './PickAddons.vue'
+import Summary from './Summary.vue'
 
 export default{
     data(){
         return {
-            stepIndex : 0,
-            buttonClick: 0
+            stepIndex : 3,
+            buttonClick: 0,
+            periodYear: false,
+            planClient: [{},[]]
         }
     },
-    components: {PersonalInfo,SelectPlan,ButtonNext,Addons},
+    components: {PersonalInfo,SelectPlan,ButtonNext,Addons,Summary},
     methods: {
         checarPersonalInfo(e){
             this.stepIndex++;
         },
         checkStepPlan(e){
             this.stepIndex++;
+            this.periodYear = e.periodYear;
+            this.planClient[0] = e;
         },
         checkAddons(e){
             this.stepIndex++;
+            this.planClient[1] = e;
         },
         returnedButtonNext(e){
             this.buttonClick = e;
@@ -57,7 +63,8 @@ export default{
         <div class="container-form">
             <PersonalInfo v-show="stepIndex == 0" @liberarStep = "(e) => checarPersonalInfo(e)" :clicked="buttonClick" :indexStep="stepIndex"/>
             <SelectPlan v-show="stepIndex == 1" :clicked="buttonClick" :indexStep="stepIndex" @sendPlan="(e) => checkStepPlan(e)"/>
-            <Addons v-show="stepIndex == 2" :clicked="buttonClick" :indexStep="stepIndex" @addonsChoiced="(e) => checkAddons(e) "/>    
+            <Addons v-show="stepIndex == 2" :clicked="buttonClick" :indexStep="stepIndex" :period="periodYear" @addonsChoiced="(e) => checkAddons(e) "/>
+            <Summary v-show="stepIndex == 3" :planComplete="planClient[0]" :addonsComplete="planClient[1]"/>
             <ButtonNext @responseClick="(e) => returnedButtonNext(e)" :clicked="[buttonClick,stepIndex]" @responseClickBack="(e) => returnedButtonBack(e)"/>
         </div>    
     </div>

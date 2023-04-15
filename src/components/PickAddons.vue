@@ -30,16 +30,32 @@
         },
         props: {
             clicked: Number,
-            indexStep: Number
+            indexStep: Number,
+            period: Boolean
         },
         watch: {
             clicked(newClicked){
                 if(this.indexStep == 2){
-                    return this.$emit("addonsChoiced",this.addons_choiced);
+                    let addons_filtered = [];
+
+                    this.addons_choiced.forEach( check => {
+                        let detail = check.parentNode.children[1].children[0].innerText;
+                        let value = parseInt(check.parentNode.children[2].innerText.split("/")[0].split("$")[1], 10);
+                        
+                        let filter = {detail: detail, value: value};
+                        addons_filtered.push(filter);
+                    });
+                    
+                    return this.$emit("addonsChoiced",addons_filtered);
                 }
                 else{
                     return false;
                 }
+            }
+        },
+        computed: {
+            periodYear(){
+                return this.period ? "0/yr" : "/mo";
             }
         }
        
@@ -56,19 +72,19 @@
         <div class="add-on_box" @click="(e) => choiceAdd(e,0)">
             <input type="checkbox"/>
             <label class="alt"><p>{{ add_ons[0].type }}</p><p>Acess to multiplayer games</p></label>
-            <span>+${{ add_ons[0].value }}/mo</span>
+            <span>+${{ add_ons[0].value + periodYear }}</span>
         </div>
 
         <div class="add-on_box" @click="(e) => choiceAdd(e,1)">
             <input type="checkbox"/>
             <label class="alt"><p>{{ add_ons[1].type }}</p><p>Extra 1 TB of cloud save</p></label>
-            <span>+${{ add_ons[1].value }}/mo</span>
+            <span>+${{ add_ons[1].value + periodYear }}</span>
         </div>
 
         <div class="add-on_box" @click="(e) => choiceAdd(e,2)">
             <input type="checkbox"/>
             <label class="alt"><p>{{ add_ons[2].type }}</p><p>Custom theme on your profile</p></label>
-            <span>+${{ add_ons[2].value }}/mo</span>
+            <span>+${{ add_ons[2].value + periodYear}}</span>
         </div>
         
 

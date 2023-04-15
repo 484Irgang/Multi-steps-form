@@ -3,18 +3,15 @@
         data(){
             return{
                 periodPlanYear: false,
-                valuePlans: [{price:9,name: 'Arcade', period: undefined},{price:12, name: 'Advanced', period: undefined},{price:15, name: 'Pro', period: undefined}],
                 planSelected: {},
-                toggleAlert: false
+                toggleAlert: false,
+                plan_choiced: null
             }
         },
         methods: {
-            setValues(value){
-                return this.periodPlanYear? '$'+value*10+'/ye' : '$'+value+'/mo';
-            },
             choicePlan(value){
-                let planSelected = this.valuePlans.filter((e,i) => i == value);
-                this.planSelected = planSelected[0];
+                this.plan_choiced = value;
+                this.planSelected = {type: value};
             },
             objIsEmpty(obj){
                 for(var prop in obj){
@@ -36,8 +33,13 @@
                         setTimeout(() => this.toggleAlert = false, 5000);
                     }
                     else{
-                        let period = this.periodPlanYear? 'Yearly' : 'Monthly';
-                        this.planSelected.period = period;
+                        let plan = document.querySelectorAll(".plans .plan");
+                        let type = plan[this.plan_choiced].children[1].innerText.split('\n')[0];
+                        let price = parseInt(plan[this.plan_choiced].children[1].innerText.split('\n')[2].split("/")[0].split("$")[1], 10);
+                        let period = this.periodPlanYear;
+
+                        this.planSelected = {name: type, price: price, periodYear: period};
+
                         this.$emit('sendPlan',this.planSelected);
                     }
                 }
@@ -58,19 +60,19 @@
         </div>
 
         <div class="plans">
-            <div :class="{planSelected: planSelected.name == 'Arcade'}" @click="choicePlan(0)" class="plan">
+            <div :class="{planSelected: plan_choiced == 0}" @click="choicePlan(0)" class="plan">
                 <img src="../assets/icon-arcade.svg" class="img-plan"/>
-                <p>Arcade<br/><span>{{setValues(valuePlans[0].price)}}</span><br/><span v-show="periodPlanYear"> 2 months free</span></p>
+                <p>Arcade<p v-if="this.periodPlanYear">$90/yr</p><p v-else>$9/mo</p><p v-show="periodPlanYear"> 2 months free</p></p>
             </div>
 
-            <div :class="{planSelected: planSelected.name == 'Advanced'}" @click="choicePlan(1)" class="plan">
+            <div :class="{planSelected: plan_choiced == 1}" @click="choicePlan(1)" class="plan">
                 <img src="../assets/icon-advanced.svg" class="img-plan"/>
-                <p>Advanced<br/><span>{{setValues(valuePlans[1].price)}}</span><br/><span v-show="periodPlanYear">2 months free</span></p>
+                <p>Advanced<p v-if="this.periodPlanYear">$120/yr</p><p v-else>$12/mo</p><p v-show="periodPlanYear">2 months free</p></p>
             </div>
 
-            <div :class="{planSelected: planSelected.name == 'Pro'}" @click="choicePlan(2)" class="plan">
+            <div :class="{planSelected: plan_choiced == 2}" @click="choicePlan(2)" class="plan">
                 <img src="../assets/icon-pro.svg" class="img-plan"/>
-                <p>Pro<br/><span>{{setValues(valuePlans[2].price)}}</span><br/><span v-show="periodPlanYear">2 months free</span></p>
+                <p>Pro<p v-if="this.periodPlanYear">$150/yr</p><p v-else>$15/mo</p><p v-show="periodPlanYear">2 months free</p></p>
             </div>
         </div>
 
@@ -145,16 +147,16 @@
         /* background-color: blue; */
         border-radius: 50%;
     }
-    .plans .plan p{
+    .plans .plan > p{
         color: #02295a;
         font-weight: 500;
     }
-    .plans .plan p > span:first-of-type{
+    .plans .plan p > p:first-of-type{
         font-weight: 400;
         font-size: 14px;
         color: #9699ab;
     }
-    .plans .plan p > span:last-of-type{
+    .plans .plan p > p:last-of-type{
         font-weight: 500;
         font-size: 12px;
     }
@@ -272,7 +274,7 @@
         .plans .plan{
             width: 100%;
             padding: 4%;
-            margin-top: 4%;
+            margin-top: 2%;
             aspect-ratio: auto;
             flex-direction: row;
             justify-content: start;
