@@ -33,11 +33,17 @@
                         return false;
                 }
                 return true;
+            },
+            changePlan(v){
+                this.$emit("changePlan", v);
             }
         },
         props: {
             planComplete: Object,
-            addonsComplete: Array
+            addonsComplete: Array,
+            finished: Boolean,
+            clicked: Number,
+            indexStep: Number
         },
         watch: {
             planComplete(newPlan){
@@ -45,6 +51,11 @@
             },
             addonsComplete(newAddons){
                 this.plan_summary[1] = newAddons;
+            },
+            clicked(newClick){
+                if(this.indexStep == 3){
+                    return this.objIsEmpty(this.plan_summary[0])? false:this.$emit("confirmPackage");
+                }
             }
         }
     }
@@ -52,7 +63,7 @@
 
 <template>
 
-    <section class="container_summary">
+    <section v-if="!finished" class="container_summary">
         <div class="description">
             <h1>Finishing up</h1>
             <p>Doouble-check everything looks OK before confirming</p>
@@ -62,10 +73,11 @@
             <div v-if="objIsEmpty(plan_summary[0])" class="plan_empty">
                 <p>No one plan choiced</p>
             </div>
+
             <div v-else class="plan">
                 <label>
                     <p>{{planName}}</p>
-                    <p>Change</p>
+                    <p @click="changePlan(1)">Change</p>
                 </label>
                 <span>{{planPrice}}</span>
             </div>
@@ -73,6 +85,7 @@
             <div v-if="plan_summary[1].length == 0" class="add_ons_empty">
                 <p>No add ons adicionated to your plan</p>
             </div>
+
             <div v-else v-for="addons in plan_summary[1]" class="add_ons">
                 <p>{{addons.detail}}</p>
                 <span>{{plan_summary[0].periodYear? "$"+addons.value+"/yr":"$"+addons.value+"/mo"}}</span>
@@ -82,11 +95,18 @@
         <footer v-if="objIsEmpty(plan_summary[0])" class="total_empty">
             <p>Nothing to calc</p>
         </footer>
+
         <footer v-else class="total">
             <p>{{plan_summary[0].periodYear? "Total (per year)":"Total (per month)"}}</p>
             <span>{{calcTotal}}</span>
         </footer>
 
+    </section>
+
+    <section v-else class="container_finished">
+        <img src="../assets/icon-thank-you.svg"/>
+        <h1>Thank you!</h1>
+        <p>Thanks for confirm your subscription! We hope you have fun using our plataform. If you ever need support, please feel free to email us at support@loremgaming.com</p>
     </section>
 
 </template>
@@ -218,6 +238,24 @@
 }
 .container_summary > .total_empty > p{
     color:#dcdcdc;
+    font-weight: 500;
+}
+.container_finished{
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    padding: 2%;
+    align-items: center;
+}
+.container_finished > h1{
+    color: #02295a;
+    font-size: 2em;
+    margin: 5% 0;
+}
+.container_finished > p{
+    color:#939393;
+    text-align: center;
     font-weight: 500;
 }
 </style>

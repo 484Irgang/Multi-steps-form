@@ -8,10 +8,11 @@ import Summary from './Summary.vue'
 export default{
     data(){
         return {
-            stepIndex : 3,
+            stepIndex : 0,
             buttonClick: 0,
             periodYear: false,
-            planClient: [{},[]]
+            planClient: [{},[]],
+            finished: false
         }
     },
     components: {PersonalInfo,SelectPlan,ButtonNext,Addons,Summary},
@@ -64,8 +65,8 @@ export default{
             <PersonalInfo v-show="stepIndex == 0" @liberarStep = "(e) => checarPersonalInfo(e)" :clicked="buttonClick" :indexStep="stepIndex"/>
             <SelectPlan v-show="stepIndex == 1" :clicked="buttonClick" :indexStep="stepIndex" @sendPlan="(e) => checkStepPlan(e)"/>
             <Addons v-show="stepIndex == 2" :clicked="buttonClick" :indexStep="stepIndex" :period="periodYear" @addonsChoiced="(e) => checkAddons(e) "/>
-            <Summary v-show="stepIndex == 3" :planComplete="planClient[0]" :addonsComplete="planClient[1]"/>
-            <ButtonNext @responseClick="(e) => returnedButtonNext(e)" :clicked="[buttonClick,stepIndex]" @responseClickBack="(e) => returnedButtonBack(e)"/>
+            <Summary v-show="stepIndex == 3" @confirmPackage="finished = true" :clicked="buttonClick" :indexStep="stepIndex" :finished="finished" :planComplete="planClient[0]" :addonsComplete="planClient[1]" @changePlan="stepIndex = $event"/>
+            <ButtonNext v-show="!finished" @responseClick="(e) => returnedButtonNext(e)" :clicked="[buttonClick,stepIndex]" @responseClickBack="(e) => returnedButtonBack(e)"/>
         </div>    
     </div>
 </template>

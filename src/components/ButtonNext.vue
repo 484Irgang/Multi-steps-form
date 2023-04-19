@@ -11,7 +11,7 @@
         emits: ['responseClick','responseClickBack'],
         methods: {
             clickedNext(){
-                if(this.clicked[1] < 3){
+                if(this.clicked[1] <= 3){
                     this.indexButton = this.clicked[0];
                     this.indexButton++;
                     this.$emit('responseClick', this.indexButton);
@@ -31,7 +31,7 @@
 
 <template>
     <div class="container-button">
-        <button @click="clickedNext"><span v-if="clicked[1] == 3">Confirm</span><span v-else >Next Step</span></button>
+        <button :class="{buttonConfirm: clicked[1] == 3, buttonNext: clicked[1] != 3}" @click="clickedNext"><span v-if="clicked[1] == 3">Confirm</span><span v-else >Next Step</span></button>
         <button v-show="clicked[1] > 0" @click="clickedBack">Go Back</button>
     </div>
 </template>
@@ -55,13 +55,21 @@
     font-family: Ubuntu;
     font-weight: 400;
     color: #ffffff;
-    background-color: #02295a;
     cursor: pointer;
     transition-duration: 0.4s;
 }
-.container-button button:first-of-type:hover{
+.container-button .buttonNext{
+    background-color: #02295a;
+}    
+.container-button .buttonNext:hover{
     background-color: #043775;
 }
+.buttonConfirm{
+    background-color: #483EFF;
+}
+.buttonConfirm:hover{
+    background-color: #938CFF;
+}    
 .container-button button:last-of-type{
     height: 25px;
     border: none;
@@ -75,6 +83,7 @@
 .container-button button:last-of-type:hover{
     color: hsl(231, 7%, 37%);
 }
+
 
 @media screen and (max-width: 768px){
     .container-button{
