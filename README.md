@@ -2,9 +2,11 @@
 
 Este é mais um desafio conhecido como [Multi-step form challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/multistep-form-YVAnSdqQBJ). Frontend Mentor é um site que implementa desafios para criar projetos mais realistas e próximos ao que o mercado exige, onde recebemos o design do projeto e a partir dos requisitos estabelecidos criamos uma aplicação funcional e interativa para o usuário.
 
-[ Imagens ](#imagens)
-
-## Visão geral
+## Tabela de conteudo
+- [Desafio](#desafio)
+- [Imagens](#imagens)
+- [Links](#links)
+- [Ferramentas e linguagens](#ferramentas-e-linguagens)
 
 ### Desafio
 
@@ -21,9 +23,11 @@ Neste desafio o usuário final deve ter as seguintes possibilidades:
  - No segundo passo o usuário terá que escolher um plano para dar continuidade caso contrário ficará aparecendo um erro na tela
 
 ### Imagens
+
+
+<img width="50%" src="https://github.com/484Irgang/Multi-steps-form/assets/99806060/89965798-2ca6-4906-9180-8ec584463a63"></img>
+<img width="40%" src="https://github.com/484Irgang/Multi-steps-form/assets/99806060/56511bad-cbf0-4343-946d-392a12daf8ba"></img>
 ![desktop](https://github.com/484Irgang/Multi-steps-form/assets/99806060/c9c2afc7-cc3c-4298-b067-637f3b36201d)
-![mobile](https://github.com/484Irgang/Multi-steps-form/assets/99806060/56511bad-cbf0-4343-946d-392a12daf8ba)
-![tablet](https://github.com/484Irgang/Multi-steps-form/assets/99806060/89965798-2ca6-4906-9180-8ec584463a63)
 
 ### Links
 
@@ -32,7 +36,16 @@ Neste desafio o usuário final deve ter as seguintes possibilidades:
 
 ### Ferramentas e linguagens
 
-<p> <sup> :heavy_check_mark: </sup> <img width="24px" height="24px" src="https://user-images.githubusercontent.com/99806060/222971989-6a2f6d9d-7b89-4ce2-9553-8fab7346c35e.png"/><sup> HTML5 </sup></p>
-<p> <sup> :heavy_check_mark: </sup> <img width="24px" height="24px" src="https://user-images.githubusercontent.com/99806060/222971975-f2cdccc9-ee31-4294-9ad8-44a771d63b83.png"/><sup> CSS3 </sup></p>
-<p> <sup> :heavy_check_mark: </sup> <img width="24px" height="24px" src="https://user-images.githubusercontent.com/99806060/222972013-fa4980d2-4096-460f-84db-83f50715fc6c.png"/><sup> JQUERY </sup></p>
+<img width="64px" height="64px" src="https://github.com/484Irgang/Multi-steps-form/assets/99806060/55dc35e8-8e39-4767-809f-196f11aaadcb"></img>
+<img width="64px" height="64px" src="https://github.com/484Irgang/Multi-steps-form/assets/99806060/e5cf2a34-cffd-4afd-9a6d-8c9d77dda48e"></img>
+<img width="64px" height="64px" src="https://github.com/484Irgang/Multi-steps-form/assets/99806060/21378cab-65c0-4c14-b529-8de81726c361"></img>
+<img width="64px" height="64px" src="https://github.com/484Irgang/Multi-steps-form/assets/99806060/e7c14822-6e6a-4b7d-a4ba-ef81143340a5"></img>
+<img width="64px" height="64px" src="https://github.com/484Irgang/Multi-steps-form/assets/99806060/fe96fc1d-5a52-46a6-98c9-f8bc4e55c510"></img>
+<img width="64px" height="64px" src="https://github.com/484Irgang/Multi-steps-form/assets/99806060/8ec7aec4-b271-4f0d-b88c-c8e6ac53d246"></img>
 
+### Autor
+
+<p>
+  <img width="80px" src="https://user-images.githubusercontent.com/99806060/222972461-307f2daa-5f89-433c-b544-a19ba6c8447d.png"/><br/>
+  <a href="https://github.com/484Irgang"><img src="https://user-images.githubusercontent.com/99806060/222972502-6155517a-b48d-40de-9ab4-e345ee18f0c2.png"/></a>
+</p>
