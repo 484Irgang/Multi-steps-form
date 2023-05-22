@@ -2,6 +2,8 @@
 
 Este é mais um desafio conhecido como [Multi-step form challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/multistep-form-YVAnSdqQBJ). Frontend Mentor é um site que implementa desafios para criar projetos mais realistas e próximos ao que o mercado exige, onde recebemos o design do projeto e a partir dos requisitos estabelecidos criamos uma aplicação funcional e interativa para o usuário.
 
+[ Imagens ](#imagens)
+
 ## Visão geral
 
 ### Desafio
